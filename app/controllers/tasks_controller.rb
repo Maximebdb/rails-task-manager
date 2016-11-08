@@ -1,22 +1,38 @@
 class TasksController < ApplicationController
-  def index
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+
+  def index # GET /tasks
+    @tasks = Task.all
   end
 
-  def show
+  def show # GET /tasks/:id
   end
 
-  def new
+  def new # GET /tasks/new
+    @task = Task.new
   end
 
-  def create
+  def create # POST /tasks
+    @task = Task.new(params[:task])
+    @task.save
+    # Will raise ActiveModel::ForbiddenAttributesError
   end
 
-  def edit
+  def edit # GET /tasks/:id/edit
   end
 
-  def update
+  def update # PATCH /tasks/:id
+    @task.update(params[:task])
+    # Will raise ActiveModel::ForbiddenAttributesError
   end
 
-  def destroy
+  def destroy # DELETE /tasks/:id
+    @task.destroy
+  end
+
+  private
+
+  def set_task
+      @task = Task.find(params[:id])
   end
 end
